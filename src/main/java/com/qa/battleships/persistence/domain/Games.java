@@ -25,6 +25,10 @@ public class Games {
 	
 	private short numberOfMisses;
 	
+	private short aiHits;
+	
+	private short aiMisses;
+	
 	private byte boardSize;
 	
 	private boolean gameWon;
@@ -33,7 +37,7 @@ public class Games {
 		
 	}
 
-	public Games(String username, byte difficulty, Long time, short numberOfHits, short numberOfMisses, byte boardSize, boolean gameWon) {
+	public Games(String username, byte difficulty, Long time, short numberOfHits, short numberOfMisses, byte boardSize, boolean gameWon, short aiHits, short aiMisses) {
 		this.username = username;
 		this.difficulty = difficulty;
 		this.time = time;
@@ -41,6 +45,8 @@ public class Games {
 		this.numberOfMisses = numberOfMisses;
 		this.boardSize = boardSize;
 		this.gameWon = gameWon;
+		this.aiHits = aiHits;
+		this.aiMisses = aiMisses;
 	}
 
 
@@ -107,6 +113,22 @@ public class Games {
 
 	public void setGameWon(boolean gameWon) {
 		this.gameWon = gameWon;
+	}
+
+	public short getAiMisses() {
+		return aiMisses;
+	}
+
+	public void setAiMisses(short aiMisses) {
+		this.aiMisses = aiMisses;
+	}
+
+	public short getAiHits() {
+		return aiHits;
+	}
+
+	public void setAiHits(short aiHits) {
+		this.aiHits = aiHits;
 	}
 
 }
