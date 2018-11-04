@@ -1,5 +1,6 @@
 package com.qa.battleships.persistence.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,8 +16,10 @@ public class Gamestates {
 
 	@ManyToOne
 	@JoinColumn(name = "username", table = "Users")
+	@Column(columnDefinition = "VARCHAR(40)")
 	private String username;
 	
+	@Column(name = "game_state", columnDefinition = "VARCHAR(3000)")
 	private String gamestate;
 	
 	public Gamestates() {

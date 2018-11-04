@@ -1,5 +1,6 @@
 package com.qa.battleships.persistence.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,22 +16,30 @@ public class Games {
 	
 	@ManyToOne
 	@JoinColumn(name = "username", table = "Users")
+	@Column(columnDefinition = "VARCHAR(40)")
 	private String username;
 	
+	@Column(columnDefinition = "TINYINT")
 	private byte difficulty;
 	
 	private Long time;
 	
+	@Column(name = "number_of_hits", columnDefinition = "SMALLINT")
 	private short numberOfHits;
 	
+	@Column(name = "number_of_misses", columnDefinition = "SMALLINT")
 	private short numberOfMisses;
 	
+	@Column(name = "ai_hits", columnDefinition = "SMALLINT")
 	private short aiHits;
 	
+	@Column(name = "ai_misses", columnDefinition = "SMALLINT")
 	private short aiMisses;
 	
+	@Column(name = "board_size", columnDefinition = "TINYINT")
 	private byte boardSize;
 	
+	@Column(name = "game_won")
 	private boolean gameWon;
 	
 	public Games() {

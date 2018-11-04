@@ -1,5 +1,6 @@
 package com.qa.battleships.persistence.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -7,10 +8,13 @@ import javax.persistence.Id;
 public class Users {
 
 	@Id
+	@Column(columnDefinition = "VARCHAR(40)")
 	private String username;
 	
+	@Column(columnDefinition = "CHAR(128)")
 	private String password;
 	
+	@Column(columnDefinition = "CHAR(8)")
 	private String salt;
 	
 	public Users() {
