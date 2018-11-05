@@ -66,6 +66,7 @@ public class DBRepoTest {
 		Mockito.when(em.find(Users.class, MOCK_USERNAME)).thenReturn(new Users(MOCK_USERNAME, MOCK_HASHED));
 		
 		assertEquals(true, repo.checkPassword(MOCK_PASSWORD, MOCK_USERNAME));
+		assertEquals(false, repo.checkPassword("incorrectpassword", MOCK_USERNAME));
 	}
 
 }
