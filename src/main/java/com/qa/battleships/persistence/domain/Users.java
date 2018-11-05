@@ -2,29 +2,27 @@ package com.qa.battleships.persistence.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Users {
-
+	
 	@Id
 	@Column(columnDefinition = "VARCHAR(40)")
 	private String username;
 	
-	@Column(columnDefinition = "CHAR(128)")
+	@Column(columnDefinition = "CHAR(60)")
 	private String password;
-	
-	@Column(columnDefinition = "CHAR(8)")
-	private String salt;
 	
 	public Users() {
 		
 	}
 	
-	public Users(String username, String password, String salt) {
+	public Users(String username, String password) {
 		this.password = password;
 		this.username = username;
-		this.salt = salt;
 	}
 
 	public String getUsername() {
@@ -41,13 +39,5 @@ public class Users {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public String getSalt() {
-		return salt;
-	}
-
-	public void setSalt(String salt) {
-		this.salt = salt;
 	}
 }
