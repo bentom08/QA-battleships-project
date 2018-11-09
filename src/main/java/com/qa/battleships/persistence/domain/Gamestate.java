@@ -9,6 +9,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 
 @Entity
 @Table(name = "gamestates")
@@ -16,9 +19,10 @@ public class Gamestate {
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long gamestateID;
-
-	@ManyToOne(optional = false)
+	
+	@ManyToOne
 	@JoinColumn(referencedColumnName="username")
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private User user;
 	
 	@Column(name = "game_state", columnDefinition = "VARCHAR(3000)")

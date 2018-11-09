@@ -1,6 +1,7 @@
 package com.qa.battleships.rest;
 
 import javax.inject.Inject;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -46,12 +47,16 @@ public class RestLayer {
 		return loginService.checkPassword(jsonUser);
 	}
 	
+	@DELETE
+	@Path("/deleteUser/{username}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String deleteUser(@PathParam("username") String username) {
+		return loginService.deleteUser(username);
+	}
+	
 	public void setLoginService(ServiceLayer service) {
 		this.loginService = service;
 	}
 
-	public String deleteUser(String username) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 }

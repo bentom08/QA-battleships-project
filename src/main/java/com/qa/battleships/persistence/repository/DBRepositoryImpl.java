@@ -64,9 +64,15 @@ public class DBRepositoryImpl implements UserLogin {
 		return TRUE;
 	}
 	
+	@Transactional(REQUIRED)
 	public String deleteUser(String username) {
-		// TODO Auto-generated method stub
-		return null;
+		User user = em.find(User.class, username);
+		if (user == null) {
+			return FALSE;
+		} else {
+			em.remove(user);
+			return TRUE;
+		}
 	}
 	
 	public void setManager(EntityManager manager) {

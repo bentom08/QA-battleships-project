@@ -26,7 +26,6 @@ public class ServiceLayer implements UserLoginService {
 	}
 
 	public String deleteUser(String username) {
-		// TODO Auto-generated method stub
-		return null;
+		return login.deleteUser(username);
 	}
 }
