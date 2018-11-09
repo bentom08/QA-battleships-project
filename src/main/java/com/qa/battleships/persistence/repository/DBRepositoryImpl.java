@@ -14,6 +14,7 @@ import javax.transaction.Transactional;
 
 import org.mindrot.jbcrypt.BCrypt;
 
+import com.qa.battleships.persistence.domain.Users;
 import com.qa.battleships.util.JSONUtil;
 
 @Transactional(SUPPORTS)
@@ -27,19 +28,30 @@ public class DBRepositoryImpl implements UserLogin {
 	private JSONUtil util;
 
 	public boolean checkPassword(String password, String username) {
-		return false;
+		Users user = em.find(Users.class, username);
+		return BCrypt.checkpw(password, user.getPassword());
 	}
 	
 	public boolean checkUsername(String username) {
-		return false;
+		if (em.find(Users.class, username) == null) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 	
+	@Transactional(REQUIRED)
 	public boolean addUser(String jsonUser) {
-		return false;
+		Users user = util.getObjectForJSON(jsonUser, Users.class);
+		em.persist(user);
+		return true;
 	}
 	
+	@Transactional(REQUIRED)
 	public boolean updatePassword(String newPassword, String username) {
-		return false;
+		Users user = em.find(Users.class, username);
+		user.setPassword(BCrypt.hashpw(newPassword, BCrypt.gensalt()));
+		return true;
 	}
 
 	public void setManager(EntityManager manager) {
