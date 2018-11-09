@@ -9,19 +9,19 @@ public class ServiceLayer implements UserLoginService {
 	@Inject
 	UserLogin login;
 
-	public boolean addUser(String jsonUser) {
+	public String addUser(String jsonUser) {
 		return login.addUser(jsonUser);
 	}
 
-	public boolean updatePassword(String newPassword, String username) {
-		return login.updatePassword(newPassword, username);
+	public String updatePassword(String jsonUser) {
+		return login.updatePassword(jsonUser);
 	}
 
-	public boolean checkUsername(String username) {
+	public String checkUsername(String username) {
 		return login.checkUsername(username);
 	}
 
-	public boolean checkPassword(String password, String username) {
-		return login.checkPassword(password, username);
+	public String checkPassword(String jsonUser) {
+		return login.checkPassword(jsonUser);
 	}
 }

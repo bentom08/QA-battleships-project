@@ -7,27 +7,29 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 
 @Entity
-public class Gamestates {
+@Table(name = "gamestates")
+public class Gamestate {
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long gamestateID;
 
-	@ManyToOne
-	@JoinColumn(name = "username", table = "Users")
-	@Column(columnDefinition = "VARCHAR(40)")
-	private String username;
+	@ManyToOne(optional = false)
+	@JoinColumn(referencedColumnName="username")
+	private User user;
 	
 	@Column(name = "game_state", columnDefinition = "VARCHAR(3000)")
 	private String gamestate;
 	
-	public Gamestates() {
+	public Gamestate() {
 		
 	}
 	
-	public Gamestates(String username, String gamestate) {
-		this.username = username;
+	public Gamestate(User user, String gamestate) {
+		this.user = user;
 		this.gamestate = gamestate;
 	}
 
@@ -39,12 +41,12 @@ public class Gamestates {
 		this.gamestateID = gamestateID;
 	}
 
-	public String getUsername() {
-		return username;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUsername(User user) {
+		this.user = user;
 	}
 
 	public String getGamestate() {

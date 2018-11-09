@@ -2,11 +2,11 @@ package com.qa.battleships.service;
 
 public interface UserLoginService {
 
-	boolean addUser(String jsonUser);
+	String addUser(String jsonUser);
 
-	boolean updatePassword(String newPassword, String username);
+	String updatePassword(String jsonUser);
 
-	boolean checkUsername(String username);
+	String checkUsername(String username);
 
-	boolean checkPassword(String newPassword, String username);
+	String checkPassword(String jsonUser);
 }

@@ -7,17 +7,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
-public class Games {
+@Table(name = "games")
+public class Game {
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long gameID;
 	
-	@ManyToOne
-	@JoinColumn(name = "username", table = "Users")
-	@Column(columnDefinition = "VARCHAR(40)")
-	private String username;
+	@ManyToOne(optional = false)
+	@JoinColumn(referencedColumnName="username")
+	private User user;
 	
 	@Column(columnDefinition = "TINYINT")
 	private byte difficulty;
@@ -42,12 +43,12 @@ public class Games {
 	@Column(name = "game_won")
 	private boolean gameWon;
 	
-	public Games() {
+	public Game() {
 		
 	}
 
-	public Games(String username, byte difficulty, Long time, short numberOfHits, short numberOfMisses, byte boardSize, boolean gameWon, short aiHits, short aiMisses) {
-		this.username = username;
+	public Game(User user, byte difficulty, Long time, short numberOfHits, short numberOfMisses, byte boardSize, boolean gameWon, short aiHits, short aiMisses) {
+		this.user = user;
 		this.difficulty = difficulty;
 		this.time = time;
 		this.numberOfHits = numberOfHits;
@@ -68,12 +69,12 @@ public class Games {
 		this.gameID = gameID;
 	}
 
-	public String getUsername() {
-		return username;
+	public User getUsername() {
+		return user;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUsername(User user) {
+		this.user = user;
 	}
 
 	public byte getDifficulty() {

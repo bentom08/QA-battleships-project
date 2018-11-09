@@ -13,7 +13,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.qa.battleships.persistence.domain.Users;
+import com.qa.battleships.persistence.domain.User;
 import com.qa.battleships.persistence.repository.DBRepositoryImpl;
 import com.qa.battleships.util.JSONUtil;
 
@@ -29,9 +29,12 @@ public class DBRepoTest {
 	private JSONUtil util;
 	
 	private static final String MOCK_OBJECT = "{\"username\":\"user123\",\"password\":\"password123\"}";
+	private static final String MOCK_INCORRECTOBJECT = "{\"username\":\"user123\",\"password\":\"wrong\"}";
 	private static final String MOCK_USERNAME = "user123";
 	private static final String MOCK_PASSWORD = "password123";
 	private static final String MOCK_HASHED = BCrypt.hashpw(MOCK_PASSWORD, BCrypt.gensalt());
+	private static final String TRUE = "{\"response\":\"true\"}";
+	private static final String FALSE = "{\"response\":\"false\"}";
 	
 	@Before
 	public void setup() {
@@ -42,30 +45,30 @@ public class DBRepoTest {
 
 	@Test
 	public void addUserTest() {
-		assertEquals(true , repo.addUser(MOCK_OBJECT));
+		assertEquals(TRUE , repo.addUser(MOCK_OBJECT));
 	}
 	
 	@Test
 	public void updatePasswordTest() {
-		Mockito.when(em.find(Users.class, MOCK_USERNAME)).thenReturn(new Users(MOCK_USERNAME, MOCK_HASHED));
-		assertEquals(true , repo.updatePassword(MOCK_PASSWORD, MOCK_USERNAME));
+		Mockito.when(em.find(User.class, MOCK_USERNAME)).thenReturn(new User(MOCK_USERNAME, MOCK_HASHED));
+		assertEquals(TRUE , repo.updatePassword(MOCK_OBJECT));
 	}
 	
 	@Test
 	public void checkUserTest() {
-		Mockito.when(em.find(Users.class, MOCK_USERNAME)).thenReturn(new Users(MOCK_USERNAME, MOCK_HASHED));
-		Mockito.when(em.find(Users.class, null)).thenReturn(null);
+		Mockito.when(em.find(User.class, MOCK_USERNAME)).thenReturn(new User(MOCK_USERNAME, MOCK_HASHED));
+		Mockito.when(em.find(User.class, null)).thenReturn(null);
 		
-		assertEquals(true, repo.checkUsername(MOCK_USERNAME));
-		assertEquals(false, repo.checkUsername(null));
+		assertEquals(TRUE, repo.checkUsername(MOCK_USERNAME));
+		assertEquals(FALSE, repo.checkUsername(null));
 	}
 	
 	@Test
 	public void checkPasswordTest() {
-		Mockito.when(em.find(Users.class, MOCK_USERNAME)).thenReturn(new Users(MOCK_USERNAME, MOCK_HASHED));
+		Mockito.when(em.find(User.class, MOCK_USERNAME)).thenReturn(new User(MOCK_USERNAME, MOCK_HASHED));
 		
-		assertEquals(true, repo.checkPassword(MOCK_PASSWORD, MOCK_USERNAME));
-		assertEquals(false, repo.checkPassword("incorrectpassword", MOCK_USERNAME));
+		assertEquals(TRUE, repo.checkPassword(MOCK_OBJECT));
+		assertEquals(FALSE, repo.checkPassword(MOCK_INCORRECTOBJECT));
 	}
 
 }
