@@ -1,30 +1,33 @@
 package com.qa.battleships.rest;
 
+import javax.inject.Inject;
+
 import com.qa.battleships.service.ServiceLayer;
+import com.qa.battleships.service.UserLoginService;
+
 
 public class RestLayer {
+	
+	@Inject
+	UserLoginService loginService;
 
 	public boolean addUser(String jsonUser) {
-		// TODO Auto-generated method stub
-		return false;
+		return loginService.addUser(jsonUser);
 	}
 
 	public boolean updatePassword(String newPassword, String username) {
-		// TODO Auto-generated method stub
-		return false;
+		return loginService.updatePassword(newPassword, username);
 	}
 	
-	public void setService(ServiceLayer service) {
-		
-	}
-
 	public boolean checkUsername(String username) {
-		// TODO Auto-generated method stub
-		return false;
+		return loginService.checkUsername(username);
 	}
 
 	public boolean checkPassword(String newPassword, String username) {
-		// TODO Auto-generated method stub
-		return false;
+		return loginService.checkPassword(newPassword, username);
+	}
+	
+	public void setLoginService(ServiceLayer service) {
+		this.loginService = service;
 	}
 }

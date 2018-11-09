@@ -28,7 +28,7 @@ public class EndpointTest {
 
 	@Before
 	public void setup() {
-		endpoint.setService(service);
+		endpoint.setLoginService(service);
 	}
 
 	@Test
