@@ -1,13 +1,14 @@
 package com.qa.battleships.persistence.repository;
 
 import static javax.transaction.Transactional.TxType.SUPPORTS;
+import static javax.transaction.Transactional.TxType.REQUIRED;
 
 import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import static javax.transaction.Transactional.TxType.REQUIRED;
+
 
 import javax.transaction.Transactional;
 
@@ -33,12 +34,12 @@ public class DBRepositoryImpl implements UserLogin {
 		return false;
 	}
 	
-	public String addUser(String jsonUser) {
-		return null;
+	public boolean addUser(String jsonUser) {
+		return false;
 	}
 	
-	public String updatePassword(String newPassword, String username) {
-		return null;
+	public boolean updatePassword(String newPassword, String username) {
+		return false;
 	}
 
 	public void setManager(EntityManager manager) {

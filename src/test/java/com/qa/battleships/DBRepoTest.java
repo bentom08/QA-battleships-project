@@ -42,14 +42,12 @@ public class DBRepoTest {
 
 	@Test
 	public void addUserTest() {
-		String reply = repo.addUser(MOCK_OBJECT);
-		assertEquals("{\"message\": \"user has been sucessfully added\"}" , reply);
+		assertEquals(true , repo.addUser(MOCK_OBJECT));
 	}
 	
 	@Test
 	public void updatePasswordTest() {
-		String reply = repo.updatePassword(MOCK_PASSWORD, MOCK_USERNAME);
-		assertEquals("{\"message\": \"password has been sucessfully updated\"}" , reply);
+		assertEquals(true , repo.updatePassword(MOCK_PASSWORD, MOCK_USERNAME));
 	}
 	
 	@Test
