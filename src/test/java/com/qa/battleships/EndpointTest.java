@@ -32,7 +32,7 @@ public class EndpointTest {
 	}
 
 	@Test
-	public void testaddUser() {
+	public void testAddUser() {
 		Mockito.when(service.addUser(MOCK_VALUE2)).thenReturn(TRUE);
 		assertEquals(TRUE, endpoint.addUser(MOCK_VALUE2));
 		Mockito.verify(service).addUser(MOCK_VALUE2);
@@ -57,5 +57,12 @@ public class EndpointTest {
 		Mockito.when(service.checkPassword(MOCK_VALUE)).thenReturn(TRUE);
 		assertEquals(TRUE, endpoint.checkPassword(MOCK_VALUE));
 		Mockito.verify(service).checkPassword(MOCK_VALUE);
+	}
+	
+	@Test
+	public void testDeleteUser() {
+		Mockito.when(service.deleteUser(MOCK_VALUE)).thenReturn(TRUE);
+		assertEquals(TRUE, endpoint.deleteUser(MOCK_VALUE));
+		Mockito.verify(service).deleteUser(MOCK_VALUE);
 	}
 }

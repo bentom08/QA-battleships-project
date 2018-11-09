@@ -49,4 +49,9 @@ public class RestLayer {
 	public void setLoginService(ServiceLayer service) {
 		this.loginService = service;
 	}
+
+	public String deleteUser(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

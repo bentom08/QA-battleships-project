@@ -63,7 +63,12 @@ public class DBRepositoryImpl implements UserLogin {
 		user.setPassword(BCrypt.hashpw(userObj.getPassword(), BCrypt.gensalt()));
 		return TRUE;
 	}
-
+	
+	public String deleteUser(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	public void setManager(EntityManager manager) {
 		this.em = manager;
 	}
@@ -71,5 +76,7 @@ public class DBRepositoryImpl implements UserLogin {
 	public void setUtil(JSONUtil util) {
 		this.util = util;
 	}
+
+	
 
 }

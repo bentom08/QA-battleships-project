@@ -24,4 +24,9 @@ public class ServiceLayer implements UserLoginService {
 	public String checkPassword(String jsonUser) {
 		return login.checkPassword(jsonUser);
 	}
+
+	public String deleteUser(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

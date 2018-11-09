@@ -9,4 +9,6 @@ public interface UserLogin {
 	String checkUsername(String username);
 	
 	String checkPassword(String jsonUser);
+	
+	String deleteUser(String username);
 }

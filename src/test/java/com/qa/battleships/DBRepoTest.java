@@ -70,5 +70,14 @@ public class DBRepoTest {
 		assertEquals(TRUE, repo.checkPassword(MOCK_OBJECT));
 		assertEquals(FALSE, repo.checkPassword(MOCK_INCORRECTOBJECT));
 	}
+	
+	@Test
+	public void deleteUserTest() {
+		Mockito.when(em.find(User.class, MOCK_USERNAME)).thenReturn(new User(MOCK_USERNAME, MOCK_HASHED));
+		Mockito.when(em.find(User.class, null)).thenReturn(null);
+		
+		assertEquals(TRUE, repo.deleteUser(MOCK_USERNAME));
+		assertEquals(FALSE, repo.deleteUser(null));
+	}
 
 }
