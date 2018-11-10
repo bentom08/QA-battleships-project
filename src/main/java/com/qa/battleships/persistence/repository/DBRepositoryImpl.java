@@ -14,7 +14,7 @@ import javax.transaction.Transactional;
 
 import org.mindrot.jbcrypt.BCrypt;
 
-import com.qa.battleships.persistence.domain.Users;
+import com.qa.battleships.persistence.domain.User;
 import com.qa.battleships.util.JSONUtil;
 
 @Transactional(SUPPORTS)
@@ -26,35 +26,56 @@ public class DBRepositoryImpl implements UserLogin {
 	
 	@Inject
 	private JSONUtil util;
+	
+	private String TRUE = "{\"response\":\"true\"}";
+	private String FALSE = "{\"response\":\"false\"}";
 
-	public boolean checkPassword(String password, String username) {
-		Users user = em.find(Users.class, username);
-		return BCrypt.checkpw(password, user.getPassword());
+	public String checkPassword(String jsonUser) {
+		User userObj = util.getObjectForJSON(jsonUser, User.class);
+		User user = em.find(User.class, userObj.getUsername());
+		if (BCrypt.checkpw(userObj.getPassword(), user.getPassword())) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
 	}
 	
-	public boolean checkUsername(String username) {
-		if (em.find(Users.class, username) == null) {
-			return false;
+	public String checkUsername(String username) {
+		if (em.find(User.class, username) == null) {
+			return FALSE;
 		} else {
-			return true;
+			return TRUE;
 		}
 	}
 	
 	@Transactional(REQUIRED)
-	public boolean addUser(String jsonUser) {
-		Users user = util.getObjectForJSON(jsonUser, Users.class);
+
+	public String addUser(String jsonUser) {
+		User user = util.getObjectForJSON(jsonUser, User.class);
 		user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
 		em.persist(user);
-		return true;
+		return TRUE;
 	}
 	
 	@Transactional(REQUIRED)
-	public boolean updatePassword(String newPassword, String username) {
-		Users user = em.find(Users.class, username);
-		user.setPassword(BCrypt.hashpw(newPassword, BCrypt.gensalt()));
-		return true;
+	public String updatePassword(String jsonUser) {
+		User userObj = util.getObjectForJSON(jsonUser, User.class);
+		User user = em.find(User.class, userObj.getUsername());
+		user.setPassword(BCrypt.hashpw(userObj.getPassword(), BCrypt.gensalt()));
+		return TRUE;
 	}
-
+	
+	@Transactional(REQUIRED)
+	public String deleteUser(String username) {
+		User user = em.find(User.class, username);
+		if (user == null) {
+			return FALSE;
+		} else {
+			em.remove(user);
+			return TRUE;
+		}
+	}
+	
 	public void setManager(EntityManager manager) {
 		this.em = manager;
 	}
@@ -62,5 +83,7 @@ public class DBRepositoryImpl implements UserLogin {
 	public void setUtil(JSONUtil util) {
 		this.util = util;
 	}
+
+	
 
 }

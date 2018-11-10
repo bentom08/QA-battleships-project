@@ -2,11 +2,13 @@ package com.qa.battleships.persistence.repository;
 
 public interface UserLogin {
 
-	boolean updatePassword(String newPassword, String username);
+	String updatePassword(String jsonUser);
 	
-	boolean addUser(String jsonUser);
+	String addUser(String jsonUser);
 	
-	boolean checkUsername(String username);
+	String checkUsername(String username);
 	
-	boolean checkPassword(String password, String username);
+	String checkPassword(String jsonUser);
+	
+	String deleteUser(String username);
 }

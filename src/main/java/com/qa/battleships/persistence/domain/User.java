@@ -2,12 +2,15 @@ package com.qa.battleships.persistence.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
-public class Users {
+@Table(name = "users")
+public class User {
 	
 	@Id
 	@Column(columnDefinition = "VARCHAR(40)")
@@ -16,11 +19,11 @@ public class Users {
 	@Column(columnDefinition = "CHAR(60)")
 	private String password;
 	
-	public Users() {
+	public User() {
 		
 	}
 	
-	public Users(String username, String password) {
+	public User(String username, String password) {
 		this.password = password;
 		this.username = username;
 	}
