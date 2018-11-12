@@ -11,8 +11,4 @@ public interface UserLoginService {
 	String checkPassword(String jsonUser);
 	
 	String deleteUser(String deleteUser);
-
-	String setUsername(String username);
-	
-	String getUsername();
 }

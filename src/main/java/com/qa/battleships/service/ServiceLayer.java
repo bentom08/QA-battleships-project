@@ -30,13 +30,4 @@ public class ServiceLayer implements UserLoginService {
 	public String deleteUser(String username) {
 		return login.deleteUser(username);
 	}
-	
-	public String getUsername() {
-		return username;
-	}
-	
-	public String setUsername(String username) {
-		this.username = username;
-		return "{\"response\":\"username set successfully\"}";
-	}
 }

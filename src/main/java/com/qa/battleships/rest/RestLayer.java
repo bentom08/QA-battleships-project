@@ -54,20 +54,6 @@ public class RestLayer {
 		return loginService.deleteUser(username);
 	}
 	
-	@POST
-	@Path("/setUsername")
-	@Produces(MediaType.APPLICATION_JSON)
-	public String setUsername(String username) {
-		return loginService.setUsername(username);
-	}
-	
-	@GET
-	@Path("/getUsername")
-	@Produces(MediaType.APPLICATION_JSON)
-	public String getUsername() {
-		return loginService.getUsername();
-	}
-	
 	public void setLoginService(ServiceLayer service) {
 		this.loginService = service;
 	}
