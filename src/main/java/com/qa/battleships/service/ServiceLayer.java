@@ -8,8 +8,6 @@ public class ServiceLayer implements UserLoginService {
 	
 	@Inject
 	UserLogin login;
-	
-	private String username = "{\"username\":\"\"}";
 
 	public String addUser(String jsonUser) {
 		return login.addUser(jsonUser);
