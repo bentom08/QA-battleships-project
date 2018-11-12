@@ -49,7 +49,6 @@ public class DBRepositoryImpl implements UserLogin {
 	}
 	
 	@Transactional(REQUIRED)
-
 	public String addUser(String jsonUser) {
 		User user = util.getObjectForJSON(jsonUser, User.class);
 		user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
