@@ -8,6 +8,9 @@ public class ServiceLayer implements UserLoginService {
 	
 	@Inject
 	UserLogin login;
+	
+	@Inject
+	GridSquare square;
 
 	public String addUser(String jsonUser) {
 		return login.addUser(jsonUser);
@@ -28,4 +31,6 @@ public class ServiceLayer implements UserLoginService {
 	public String deleteUser(String username) {
 		return login.deleteUser(username);
 	}
+	
+	
 }
