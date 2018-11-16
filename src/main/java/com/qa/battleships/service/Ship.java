@@ -15,6 +15,10 @@ public class Ship {
 		this.shipType = shipType;
 	}
 	
+	public Ship(int length) {
+		this.length = length;
+	}
+	
 	public Ship(Ship copy) {
 		this.length = copy.length;
 		this.shipType = copy.shipType;
@@ -22,6 +26,10 @@ public class Ship {
 	
 	public int getShipLength() {
 		return length;
+	}
+	
+	public void setShipLength(int length) {
+		this.length = length;
 	}
 	
 	public int getNumberHit() {
