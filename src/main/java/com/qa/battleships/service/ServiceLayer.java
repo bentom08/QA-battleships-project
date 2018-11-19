@@ -1,17 +1,11 @@
 package com.qa.battleships.service;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import javax.inject.Inject;
 
 import com.qa.battleships.persistence.repository.BattleshipLogic;
 import com.qa.battleships.persistence.repository.UserLogin;
-import com.qa.battleships.util.GridObject;
-import com.qa.battleships.util.JSONUtil;
 
-public class ServiceLayer implements UserLoginService {
+public class ServiceLayer implements UserLoginService,
+									BattleShipsService {
 	
 	@Inject
 	UserLogin login;
