@@ -61,8 +61,15 @@ public class RestLayer {
 	@PUT
 	@Path("/placeShips")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String setHasShip(String ships) {
+	public String placeShips(String ships) {
 		return battleships.placeShips(ships);
+	}
+	
+	@PUT
+	@Path("/placeAIShips")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String placeAIShips(String shipLengths) {
+		return battleships.placeAIShips(shipLengths);
 	}
 	
 	public void setLoginService(ServiceLayer service) {

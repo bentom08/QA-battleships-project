@@ -7,13 +7,7 @@ public class Ship {
 
 	private int length;
 	private int numberHit = 0;
-	private String shipType;
 	private boolean sunk = false;
-	
-	public Ship(int length, String shipType) {
-		this.length = length;
-		this.shipType = shipType;
-	}
 	
 	public Ship(int length) {
 		this.length = length;
@@ -21,15 +15,10 @@ public class Ship {
 	
 	public Ship(Ship copy) {
 		this.length = copy.length;
-		this.shipType = copy.shipType;
 	}
 	
 	public int getShipLength() {
 		return length;
-	}
-	
-	public void setShipLength(int length) {
-		this.length = length;
 	}
 	
 	public int getNumberHit() {
@@ -40,7 +29,6 @@ public class Ship {
 		numberHit++;
 		
 		if (numberHit == length) {
-			System.out.println("You sunk my " + shipType);
 			sunk = true;
 		}
 	}

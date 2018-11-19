@@ -1,12 +1,12 @@
 package com.qa.battleships.persistence.repository;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
+import com.qa.battleships.service.BattleshipsOpponentLogic;
+import com.qa.battleships.service.Grid;
 import com.qa.battleships.service.Ship;
 import com.qa.battleships.util.GridObject;
 import com.qa.battleships.util.JSONUtil;
@@ -15,10 +15,21 @@ import com.qa.battleships.util.JSONUtil;
 public class BattleshipLogicRepo implements BattleshipLogic {
 	
 	@Inject
-	JSONUtil util;
+	private JSONUtil util;
+	
+	@Inject
+	private BattleshipsOpponentLogic logic;
+	
+	private Grid playerBoard;
+
+	private Grid opponentBoard;
+	
+	private String TRUE = "{\"response\":\"true\"}";
 	
 	public String placeShips(String ships) {
-		int[][] grid = util.getObjectForJSON(ships, GridObject.class).getGrid();
+		playerBoard = new Grid(10, 10);
+		
+		int[][] grid = util.getObjectForJSON(ships, int[][].class);
 
 		int noShips = Arrays.stream(grid).flatMapToInt(x -> Arrays.stream(x)).max().getAsInt();
 		Ship[] shipArray = new Ship[noShips];
@@ -29,12 +40,54 @@ public class BattleshipLogicRepo implements BattleshipLogic {
 			shipArray[i - 1] = new Ship(shipLength);
 		}
 		
-		List<Integer> shipIDs = new ArrayList<>();
 		for (int i = 0; i < grid.length; i++) {
 			for (int j = 0; j < grid[0].length; j++) {
-				
+				if (grid[i][j] != 0) {
+					playerBoard.getGrid()[i][j].setHasShip(true);
+					playerBoard.getGrid()[i][j].placeShip(shipArray[grid[i][j] - 1]);
+				}
 			}
 		}
-		return null;
+		
+		return TRUE;
+	}
+	
+	public String placeAIShips(String shipLengths) {
+		opponentBoard = new Grid(playerBoard);
+		
+		int[] shipLengthsArray = util.getObjectForJSON(shipLengths, int[].class);
+		
+		for(int i = 0; i < shipLengthsArray.length; i++) {
+			opponentBoard.AIPlacement(new Ship(shipLengthsArray[i]));
+		}
+		
+		int[][] grid = new int[10][10];
+		
+		for (int i = 0; i < grid.length; i++) {
+			for (int j = 0; j < grid[0].length; j++) {
+				if (opponentBoard.getGrid()[i][j].getHasShip()) {
+					grid[i][j] = 1;
+				} else {
+					grid[i][j] = 0;
+				}
+			}
+		}
+		
+		return util.getJSONForObject(grid);
+	}
+	
+	public String AITurn(String difficulty) {
+		int diffInt = (int)util.getObjectForJSON(difficulty, Integer.class);
+		
+		int[] coords = logic.AITurn(playerBoard, diffInt);
+		boolean hasSunk;
+		
+		if (playerBoard.getGrid()[coords[0]][coords[1]].getHasShip()) {
+			hasSunk = playerBoard.getGrid()[coords[0]][coords[1]].getShip().getSunk();
+		} else {
+			hasSunk = false;
+		}
+		
+		return util.getJSONForObject(new GridObject(coords, hasSunk));
 	}
 }

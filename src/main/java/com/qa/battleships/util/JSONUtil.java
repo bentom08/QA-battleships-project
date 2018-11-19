@@ -17,5 +17,5 @@ public class JSONUtil {
 	public <T> T getObjectForJSON(String jsonString, Class<T> clazz) {
 		return gson.fromJson(jsonString, clazz);
 	}
-
+	
 }

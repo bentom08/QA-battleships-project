@@ -141,15 +141,6 @@ public class Grid {
 			return true;
 	}
 	
-	public void shipPlaced(Ship ship) {
-		boolean x = false;
-		//while ( x == false) {
-			 //x = placeShip(ship);
-		//}
-		ships.add(ship);
-		System.out.println("Ship Placed!");
-	}
-	
 	public GridSquare[][] getGrid() {
 		return grid;
 	}

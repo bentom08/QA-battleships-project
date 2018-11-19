@@ -37,4 +37,7 @@ public class ServiceLayer implements UserLoginService,
 		return battleships.placeShips(ships);
 	}
 	
+	public String placeAIShips(String shipLengths) {
+		return battleships.placeAIShips(shipLengths);
+	}
 }
