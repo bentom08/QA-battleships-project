@@ -36,6 +36,17 @@ public class Grid {
 		ships = new ArrayList<>();
 	}
 	
+	public Grid() {
+		grid = new GridSquare[10][10];
+		for (int i = 0; i < grid.length; i++) {
+			for (int j = 0; j < grid[0].length; j++) {
+				grid[i][j] = new GridSquare();
+			}
+		}
+		
+		ships = new ArrayList<>();
+	}
+	
 	public void AIPlacement(Ship ship) {
 		r = new Random();
 		

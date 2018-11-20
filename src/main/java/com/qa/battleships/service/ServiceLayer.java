@@ -40,4 +40,12 @@ public class ServiceLayer implements UserLoginService,
 	public String placeAIShips(String shipLengths) {
 		return battleships.placeAIShips(shipLengths);
 	}
+	
+	public String AITurn(String difficulty) {
+		return battleships.AITurn(difficulty);
+	}
+	
+	public String playerTurn(String coords) {
+		return battleships.playerTurn(coords);
+	}
 }

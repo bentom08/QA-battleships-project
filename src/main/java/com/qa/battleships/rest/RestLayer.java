@@ -72,6 +72,21 @@ public class RestLayer {
 		return battleships.placeAIShips(shipLengths);
 	}
 	
+	@PUT
+	@Path("/AITurn")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String AITurn(String difficulty) {
+		return battleships.AITurn(difficulty);
+	}
+	
+	@PUT
+	@Path("/playerTurn")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String playerTurn(String coords) {
+		return battleships.playerTurn(coords);
+	}
+	
+	
 	public void setLoginService(ServiceLayer service) {
 		this.loginService = service;
 	}

@@ -20,15 +20,15 @@ public class BattleshipLogicRepo implements BattleshipLogic {
 	@Inject
 	private BattleshipsOpponentLogic logic;
 	
+	@Inject
 	private Grid playerBoard;
 
+	@Inject
 	private Grid opponentBoard;
 	
 	private String TRUE = "{\"response\":\"true\"}";
 	
-	public String placeShips(String ships) {
-		playerBoard = new Grid(10, 10);
-		
+	public String placeShips(String ships) {	
 		int[][] grid = util.getObjectForJSON(ships, int[][].class);
 
 		int noShips = Arrays.stream(grid).flatMapToInt(x -> Arrays.stream(x)).max().getAsInt();
@@ -52,9 +52,7 @@ public class BattleshipLogicRepo implements BattleshipLogic {
 		return TRUE;
 	}
 	
-	public String placeAIShips(String shipLengths) {
-		opponentBoard = new Grid(playerBoard);
-		
+	public String placeAIShips(String shipLengths) {	
 		int[] shipLengthsArray = util.getObjectForJSON(shipLengths, int[].class);
 		
 		for(int i = 0; i < shipLengthsArray.length; i++) {
@@ -88,6 +86,19 @@ public class BattleshipLogicRepo implements BattleshipLogic {
 			hasSunk = false;
 		}
 		
-		return util.getJSONForObject(new GridObject(coords, hasSunk));
+		boolean allSunk = playerBoard.allSunk();
+		
+		return util.getJSONForObject(new GridObject(coords, hasSunk, allSunk));
+	}
+	
+	public String playerTurn(String coords) {
+		int[] intCoords = util.getObjectForJSON(coords, int[].class);
+		
+		opponentBoard.getGrid()[intCoords[0]][intCoords[1]].setIsHit(true);
+
+		boolean sunk = opponentBoard.getGrid()[intCoords[0]][intCoords[1]].getShip().getSunk();
+		boolean allSunk = opponentBoard.allSunk();
+				
+		return util.getJSONForObject(new GridObject(sunk, allSunk));
 	}
 }
