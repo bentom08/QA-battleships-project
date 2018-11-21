@@ -1,4 +1,4 @@
-package com.qa.battleships;
+package com.qa.battleships.mockitoTests;
 
 import static org.junit.Assert.assertEquals;
 

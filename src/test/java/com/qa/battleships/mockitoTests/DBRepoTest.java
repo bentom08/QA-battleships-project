@@ -1,4 +1,4 @@
-package com.qa.battleships;
+package com.qa.battleships.mockitoTests;
 
 import static org.junit.Assert.assertEquals;
 
@@ -40,18 +40,17 @@ public class DBRepoTest {
 	public void setup() {
 		repo.setManager(em);
 		util = new JSONUtil();
-		repo.setUtil(util);
 	}
 
 	@Test
 	public void addUserTest() {
-		assertEquals(TRUE , repo.addUser(MOCK_OBJECT));
+		assertEquals(TRUE , repo.addUser(util.getObjectForJSON(MOCK_OBJECT, User.class)));
 	}
 	
 	@Test
 	public void updatePasswordTest() {
 		Mockito.when(em.find(User.class, MOCK_USERNAME)).thenReturn(new User(MOCK_USERNAME, MOCK_HASHED));
-		assertEquals(TRUE , repo.updatePassword(MOCK_OBJECT));
+		assertEquals(TRUE , repo.updatePassword(util.getObjectForJSON(MOCK_OBJECT, User.class)));
 	}
 	
 	@Test
@@ -67,8 +66,8 @@ public class DBRepoTest {
 	public void checkPasswordTest() {
 		Mockito.when(em.find(User.class, MOCK_USERNAME)).thenReturn(new User(MOCK_USERNAME, MOCK_HASHED));
 		
-		assertEquals(TRUE, repo.checkPassword(MOCK_OBJECT));
-		assertEquals(FALSE, repo.checkPassword(MOCK_INCORRECTOBJECT));
+		assertEquals(TRUE, repo.checkPassword(util.getObjectForJSON(MOCK_OBJECT, User.class)));
+		assertEquals(FALSE, repo.checkPassword(util.getObjectForJSON(MOCK_INCORRECTOBJECT, User.class)));
 	}
 	
 	@Test
