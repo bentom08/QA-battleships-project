@@ -10,7 +10,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.qa.battleships.service.BattleShipsService;
 import com.qa.battleships.service.ServiceLayer;
 import com.qa.battleships.service.UserLoginService;
 
@@ -19,9 +18,6 @@ public class RestLayer {
 	
 	@Inject
 	UserLoginService loginService;
-	
-	@Inject
-	BattleShipsService battleships;
 
 	@POST
 	@Path("/addUser")
@@ -57,35 +53,6 @@ public class RestLayer {
 	public String deleteUser(@PathParam("username") String username) {
 		return loginService.deleteUser(username);
 	}
-
-	@PUT
-	@Path("/placeShips")
-	@Produces(MediaType.APPLICATION_JSON)
-	public String placeShips(String ships) {
-		return battleships.placeShips(ships);
-	}
-	
-	@PUT
-	@Path("/placeAIShips")
-	@Produces(MediaType.APPLICATION_JSON)
-	public String placeAIShips(String shipLengths) {
-		return battleships.placeAIShips(shipLengths);
-	}
-	
-	@PUT
-	@Path("/AITurn")
-	@Produces(MediaType.APPLICATION_JSON)
-	public String AITurn(String difficulty) {
-		return battleships.AITurn(difficulty);
-	}
-	
-	@PUT
-	@Path("/playerTurn")
-	@Produces(MediaType.APPLICATION_JSON)
-	public String playerTurn(String coords) {
-		return battleships.playerTurn(coords);
-	}
-	
 	
 	public void setLoginService(ServiceLayer service) {
 		this.loginService = service;

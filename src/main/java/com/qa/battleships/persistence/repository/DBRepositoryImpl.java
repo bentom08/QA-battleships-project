@@ -24,14 +24,10 @@ public class DBRepositoryImpl implements UserLogin {
 	@PersistenceContext(unitName = "primary")
 	private EntityManager em;
 	
-	@Inject
-	private JSONUtil util;
-	
 	private String TRUE = "{\"response\":\"true\"}";
 	private String FALSE = "{\"response\":\"false\"}";
 
-	public String checkPassword(String jsonUser) {
-		User userObj = util.getObjectForJSON(jsonUser, User.class);
+	public String checkPassword(User userObj) {
 		User user = em.find(User.class, userObj.getUsername());
 		if (BCrypt.checkpw(userObj.getPassword(), user.getPassword())) {
 			return TRUE;
@@ -49,16 +45,14 @@ public class DBRepositoryImpl implements UserLogin {
 	}
 	
 	@Transactional(REQUIRED)
-	public String addUser(String jsonUser) {
-		User user = util.getObjectForJSON(jsonUser, User.class);
+	public String addUser(User user) {
 		user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
 		em.persist(user);
 		return TRUE;
 	}
 	
 	@Transactional(REQUIRED)
-	public String updatePassword(String jsonUser) {
-		User userObj = util.getObjectForJSON(jsonUser, User.class);
+	public String updatePassword(User userObj) {
 		User user = em.find(User.class, userObj.getUsername());
 		user.setPassword(BCrypt.hashpw(userObj.getPassword(), BCrypt.gensalt()));
 		return TRUE;
@@ -66,11 +60,11 @@ public class DBRepositoryImpl implements UserLogin {
 	
 	@Transactional(REQUIRED)
 	public String deleteUser(String username) {
-		User user = em.find(User.class, username);
-		if (user == null) {
+		User userInDB = em.find(User.class, username);
+		if (userInDB == null) {
 			return FALSE;
 		} else {
-			em.remove(user);
+			em.remove(userInDB);
 			return TRUE;
 		}
 	}
@@ -78,11 +72,4 @@ public class DBRepositoryImpl implements UserLogin {
 	public void setManager(EntityManager manager) {
 		this.em = manager;
 	}
-
-	public void setUtil(JSONUtil util) {
-		this.util = util;
-	}
-
-	
-
 }
