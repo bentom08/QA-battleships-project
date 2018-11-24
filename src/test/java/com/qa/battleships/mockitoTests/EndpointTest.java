@@ -28,7 +28,8 @@ public class EndpointTest {
 
 	@Before
 	public void setup() {
-		endpoint.setLoginService(service);
+	 	endpoint.setLoginService(service);
+	 	endpoint.setGameService(service);
 	}
 
 	@Test
@@ -64,5 +65,26 @@ public class EndpointTest {
 		Mockito.when(service.deleteUser(MOCK_VALUE)).thenReturn(TRUE);
 		assertEquals(TRUE, endpoint.deleteUser(MOCK_VALUE));
 		Mockito.verify(service).deleteUser(MOCK_VALUE);
+	}
+	
+	@Test
+	public void testAddGame() {
+		Mockito.when(service.addGame(MOCK_VALUE, MOCK_VALUE2)).thenReturn(TRUE);
+		assertEquals(TRUE, endpoint.addGame(MOCK_VALUE, MOCK_VALUE2));
+		Mockito.verify(service).addGame(MOCK_VALUE, MOCK_VALUE2);
+	}
+	
+	@Test
+	public void testGetUserGames() {
+		Mockito.when(service.getUserGames(MOCK_VALUE)).thenReturn(TRUE);
+		assertEquals(TRUE, endpoint.getUserGames(MOCK_VALUE));
+		Mockito.verify(service).getUserGames(MOCK_VALUE);
+	}
+	
+	@Test
+	public void testGetAIGames() {
+		Mockito.when(service.getAIGames(MOCK_VALUE)).thenReturn(TRUE);
+		assertEquals(TRUE, endpoint.getAIGames(MOCK_VALUE));
+		Mockito.verify(service).getAIGames(MOCK_VALUE);
 	}
 }

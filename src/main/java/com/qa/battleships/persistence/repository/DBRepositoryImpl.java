@@ -4,7 +4,6 @@ import static javax.transaction.Transactional.TxType.SUPPORTS;
 import static javax.transaction.Transactional.TxType.REQUIRED;
 
 import javax.enterprise.inject.Default;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -15,7 +14,6 @@ import javax.transaction.Transactional;
 import org.mindrot.jbcrypt.BCrypt;
 
 import com.qa.battleships.persistence.domain.User;
-import com.qa.battleships.util.JSONUtil;
 
 @Transactional(SUPPORTS)
 @Default
