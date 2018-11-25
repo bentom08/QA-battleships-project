@@ -14,9 +14,9 @@ import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mindrot.jbcrypt.BCrypt;
 
 import com.qa.battleships.persistence.domain.Game;
 import com.qa.battleships.persistence.domain.User;
@@ -34,8 +34,10 @@ public class GameDataRepoTest {
 	@Inject
 	private DBRepositoryImpl userRepo;
 	
-	private Game game1;
-	private Game game2;
+	private User user = new User("user", "pass");
+	private User user2 = new User("user2", "pass");
+	private Game game1 = new Game(user, (byte) 2, 100L, (short)15, (short)15, (byte)10, true, (short)15, (short)15);
+	private Game game2 = new Game(user2, (byte) 1, 100L, (short)15, (short)15, (byte)10, true, (short)15, (short)15);
 	private static final String TRUE = "{\"response\":\"true\"}";
 	
 	@Deployment
@@ -47,23 +49,18 @@ public class GameDataRepoTest {
                 .addClass(GameDataRepo.class)
                 .addClass(Game.class)
                 .addClass(DBRepositoryImpl.class)
+                .addClass(BCrypt.class)
                 .addClass(UserLogin.class)
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml")
                 .addAsManifestResource("META-INF/test-persistence.xml", "persistence.xml");
     }
 	
-	@BeforeClass
-	public void setup() {
-		User user = new User("user", "pass");
-		User user2 = new User("user2", "pass");
-		userRepo.addUser(user);
-		game1 = new Game(user, (byte) 2, 100L, (short)15, (short)15, (byte)10, true, (short)15, (short)15);
-		game2 = new Game(user2, (byte) 1, 100L, (short)15, (short)15, (byte)10, true, (short)15, (short)15);
-	}
-	
 	@Test
 	@InSequence(1)
 	public void deploymentTest() {
+		userRepo.addUser(user);
+		userRepo.addUser(user2);
+		
 		assertNotNull(repo);
 	}
 	
@@ -77,15 +74,15 @@ public class GameDataRepoTest {
 	@Test
 	@InSequence(3)
 	public void testGetUserGames() {
-		assertEquals(Arrays.asList(game1), repo.getUserGames("user"));
-		assertEquals(Arrays.asList(game2), repo.getUserGames("user2"));
+		assertEquals(Arrays.asList(game1).toString(), repo.getUserGames("user").toString());
+		assertEquals(Arrays.asList(game2).toString(), repo.getUserGames("user2").toString());
 	}
 	
 	@Test
 	@InSequence(4)
 	public void testGetAIGames() {
-		assertEquals(Arrays.asList(game1), repo.getAIGames("2"));
-		assertEquals(Arrays.asList(game2), repo.getAIGames("1"));
+		assertEquals(Arrays.asList(game1).toString(), repo.getAIGames("2").toString());
+		assertEquals(Arrays.asList(game2).toString(), repo.getAIGames("1").toString());
 	}
 	
 }

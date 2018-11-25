@@ -140,5 +140,9 @@ public class Game {
 	public void setAiHits(short aiHits) {
 		this.aiHits = aiHits;
 	}
+	
+	public String toString() {
+		return difficulty + ", " + time + ", " + numberOfHits + ", " + numberOfMisses + ", " + boardSize + ", " + gameWon + ", " + aiMisses + ", " + aiHits;
+	}
 
 }
