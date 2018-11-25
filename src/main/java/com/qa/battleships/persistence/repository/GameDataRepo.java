@@ -10,5 +10,5 @@ public interface GameDataRepo {
 	
 	Collection<Game> getUserGames(String username);
 	
-	Collection<Game> getAIGames(String difficulty);
+	Collection<Game> getAllGames();
 }

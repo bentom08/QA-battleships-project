@@ -38,7 +38,6 @@ public class GameDataRepoTest {
 	private static final String MOCK_HASHED = BCrypt.hashpw(MOCK_PASSWORD, BCrypt.gensalt());
 	private static final String TRUE = "{\"response\":\"true\"}";
 	private static final List<Game> MOCK_GAMELIST = Arrays.asList(new Game(), new Game());
-	private static final String MOCK_DIFF = "3";
 	
 	@Before
 	public void setup() {
@@ -62,9 +61,8 @@ public class GameDataRepoTest {
 	@Test
 	public void testGetAIGames() {
 		Mockito.when(em.createQuery(Mockito.anyString())).thenReturn(query);
-		Mockito.when(query.setParameter(Mockito.anyString(), Mockito.eq(Byte.parseByte(MOCK_DIFF)))).thenReturn(query);
 		Mockito.when(query.getResultList()).thenReturn(MOCK_GAMELIST);
-		assertEquals(MOCK_GAMELIST, repo.getAIGames(MOCK_DIFF));
+		assertEquals(MOCK_GAMELIST, repo.getAllGames());
 	}
 
 }

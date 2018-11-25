@@ -47,7 +47,7 @@ public class ServiceLayer implements UserLoginService,
 		return util.getJSONForObject(gameData.getUserGames(username));
 	}
 
-	public String getAIGames(String difficulty) {
-		return util.getJSONForObject(gameData.getAIGames(difficulty));
+	public String getAllGames() {
+		return util.getJSONForObject(gameData.getAllGames());
 	}
 }

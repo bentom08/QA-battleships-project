@@ -81,8 +81,7 @@ public class GameDataRepoTest {
 	@Test
 	@InSequence(4)
 	public void testGetAIGames() {
-		assertEquals(Arrays.asList(game1).toString(), repo.getAIGames("2").toString());
-		assertEquals(Arrays.asList(game2).toString(), repo.getAIGames("1").toString());
+		assertEquals(Arrays.asList(game1, game2).toString(), repo.getAllGames().toString());
 	}
 	
 }

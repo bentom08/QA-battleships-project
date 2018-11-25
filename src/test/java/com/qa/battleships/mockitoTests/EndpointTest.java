@@ -83,8 +83,8 @@ public class EndpointTest {
 	
 	@Test
 	public void testGetAIGames() {
-		Mockito.when(service.getAIGames(MOCK_VALUE)).thenReturn(TRUE);
-		assertEquals(TRUE, endpoint.getAIGames(MOCK_VALUE));
-		Mockito.verify(service).getAIGames(MOCK_VALUE);
+		Mockito.when(service.getAllGames()).thenReturn(TRUE);
+		assertEquals(TRUE, endpoint.getAllGames());
+		Mockito.verify(service).getAllGames();
 	}
 }

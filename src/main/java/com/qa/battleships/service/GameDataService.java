@@ -6,5 +6,5 @@ public interface GameDataService {
 	
 	String getUserGames(String username);
 	
-	String getAIGames(String difficulty);
+	String getAllGames();
 }

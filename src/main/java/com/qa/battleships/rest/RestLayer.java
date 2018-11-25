@@ -66,17 +66,17 @@ public class RestLayer {
 	}
 	
 	@GET
-	@Path("getUserGames/{username}")
+	@Path("/getUserGames/{username}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getUserGames(@PathParam("username") String username) {
 		return gameService.getUserGames(username);
 	}
 	
 	@GET
-	@Path("getAIGames/{difficulty}")
+	@Path("/getAllGames")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String getAIGames(@PathParam("difficulty") String difficulty) {
-		return gameService.getAIGames(difficulty);
+	public String getAllGames() {
+		return gameService.getAllGames();
 	}
 	
 	public void setLoginService(UserLoginService service) {

@@ -35,8 +35,8 @@ public class GameDataRepoImpl implements GameDataRepo {
 		return em.createQuery("SELECT g FROM Game g WHERE g.user.username LIKE :username").setParameter("username", username).getResultList();
 	}
 
-	public Collection<Game> getAIGames(String difficulty) {
-		return em.createQuery("SELECT g FROM Game g WHERE g.difficulty LIKE :difficulty").setParameter("difficulty", Byte.parseByte(difficulty)).getResultList();
+	public Collection<Game> getAllGames() {
+		return em.createQuery("SELECT g FROM Game g").getResultList();
 	}
 
 	public void setManager(EntityManager manager) {
